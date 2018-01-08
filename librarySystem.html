@@ -1,0 +1,73 @@
+<script src="tinytest.js"></script>
+<script src="librarySystem.js"></script>
+<script>
+      
+tests({
+   
+  'It should return a library module with no dependencies': function() {
+  librarySystem('lib', [], function() {
+    return 'lib module';
+  });
+        
+  eq(librarySystem('lib'),'lib module');
+  reset();
+  },
+    
+  'It should return a library module with 1 dependency': function() {
+    librarySystem('dependency', [], function() {
+      return ' one dependency';
+    });
+    librarySystem('lib', ['dependency'], function(dependency) {
+      return 'lib plus' + dependency;
+    });
+        
+    eq(librarySystem('lib'), 'lib plus one dependency');
+    reset();
+    },
+    
+  'It should return a library module with more than 1 dependency': function() {
+    librarySystem('name', [], function() {
+      return 'Gordon';      
+    });
+    librarySystem('company', [], function() {
+      return 'Watch and Code';
+    });
+    librarySystem('workBlurb', ['name', 'company'], function(name, company) {
+      return name + ' works at ' + company;
+    });
+        
+    eq(librarySystem('workBlurb'), 'Gordon works at Watch and Code');
+    reset();
+  },
+    
+  'It should return a library module with dependencies loaded out of order': function() {
+    librarySystem('workBlurb', ['name', 'company'], function(name, company) {
+      return name + ' works at ' + company;    
+    });
+    librarySystem('name', [], function() {
+      return 'Gordon';
+    });
+    librarySystem('company', [], function() {
+      return 'Watch and Code';
+    });
+        
+    eq(librarySystem('workBlurb'), 'Gordon works at Watch and Code');
+      reset();
+    },
+    
+  'Callback for every library module should only run once': function() {
+    var timesCallbackHasRun = 0;
+    librarySystem('lib', [], function() {
+      timesCallbackHasRun++;
+      return 'lib module'; 
+    });
+        
+    librarySystem('lib');
+    librarySystem('lib');
+        
+    eq(timesCallbackHasRun, 1);
+  }
+    
+});
+    
+</script>
