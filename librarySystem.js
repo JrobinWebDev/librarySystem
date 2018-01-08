@@ -10,7 +10,7 @@
       var futureDependArr = [];
       arr.forEach(function(depend) {
         futureDependArr.push(depend);
-      })
+      });
       // create the lib
       store[name] = {
         dependencies: futureDependArr,
@@ -34,7 +34,7 @@
           if (store[depend]) {        
             dependencies[i] = store[depend].callback();
           }
-        }) 
+        });
              
         libWithDependCache[name] = store[name].callback.apply(null, dependencies);
         return libWithDependCache[name];  
@@ -54,6 +54,6 @@
   window.reset = function reset() {
     store = {};
     libWithDependCache = {};
-  }
+  };
     
 })();
