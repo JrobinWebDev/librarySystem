@@ -27,14 +27,13 @@
         }
           
         // check if the lib module has dependencies 
-        if (store[name].dependencies.length) {   
-             
-        var dependencies = store[name].dependencies;
-        dependencies.forEach(function(depend, i) {
-          if (store[depend]) {        
-            dependencies[i] = store[depend].callback();
-          }
-        });
+        if (store[name].dependencies.length) {    
+          var dependencies = store[name].dependencies;
+          dependencies.forEach(function(depend, i) {
+            if (store[depend]) {        
+              dependencies[i] = store[depend].callback();
+            }
+          });
              
         libWithDependCache[name] = store[name].callback.apply(null, dependencies);
         return libWithDependCache[name];  
