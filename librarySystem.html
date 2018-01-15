@@ -66,6 +66,19 @@ tests({
     librarySystem('lib');
         
     eq(timesCallbackHasRun, 1);
+    reset();
+  },
+    
+  'library modules invoked that do not exist should throw Error': function() {
+    var isError = false;
+    try {
+      librarySystem('workBlurb');
+    } catch(e) {
+      isError = e instanceof Error;      
+    }
+    
+    eq(isError, true);
+    reset();
   }
     
 });
