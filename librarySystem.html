@@ -5,12 +5,12 @@
 tests({
    
   'It should return a library module with no dependencies': function() {
-  librarySystem('lib', [], function() {
-    return 'lib module';
-  });
+    librarySystem('lib', [], function() {
+      return 'lib module';
+    });
         
-  eq(librarySystem('lib'),'lib module');
-  reset();
+    eq(librarySystem('lib'),'lib module');
+    reset();
   },
     
   'It should return a library module with 1 dependency': function() {
@@ -69,7 +69,7 @@ tests({
     reset();
   },
     
-  'library modules invoked that do not exist should throw Error': function() {
+  'Library modules invoked that do not exist should throw Error': function() {
     var isError = false;
     try {
       librarySystem('workBlurb');
